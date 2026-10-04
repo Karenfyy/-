@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神秘塔羅占卜殿堂 · 專業向量插畫與資深牌師解析版</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        tarot: {
+                            dark: '#080612',
+                            cardBg: '#131022',
+                            cardBorder: '#c5a059',
+                            purple: '#2d1b4e',
+                            glow: '#e0b56b'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cinzel"', '"Noto Serif TC"', 'serif'],
+                        sans: ['"Inter"', '"Noto Sans TC"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts for Classical Serif & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+TC:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: #080612;
+            color: #e2e8f0;
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-mystical {
+            font-family: 'Cinzel', 'Noto Serif TC', serif;
+        }
+
+        /* Starry background effect */
+        .stars-bg {
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, rgba(197, 160, 89, 0.6), rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, rgba(224, 181, 107, 0.5), rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: twinkle 12s linear infinite;
+        }
+
+        @keyframes twinkle {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-200px); }
+        }
+
+        /* Gold Gradient Text */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #f5d77f 0%, #c5a059 50%, #9a7331 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Card Flip Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Card Back Pattern */
+        .tarot-card-back {
+            background: radial-gradient(circle, #1a1532 0%, #0d0a1a 100%);
+            border: 2px solid #c5a059;
+            background-image: 
+                radial-gradient(circle, rgba(197,160,89,0.15) 10%, transparent 10%),
+                radial-gradient(circle, rgba(197,160,89,0.1) 20%, transparent 20%);
+            background-size: 20px 20px;
+        }
+
+        @keyframes shimmer {
+            0% { opacity: 0.4; }
+            50% { opacity: 0.9; filter: drop-shadow(0 0 10px #f5d77f); }
+            100% { opacity: 0.4; }
+        }
+
+        .shimmer-effect {
+            animation: shimmer 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative stars-bg">
+
+    <!-- Header -->
+    <header class="w-full py-6 px-4 text-center border-b border-purple-900/40 bg-tarot-dark/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="resetApp()">
+                <i class="fa-solid fa-moon text-amber-400 text-2xl shimmer-effect"></i>
+                <span class="font-mystical text-xl md:text-2xl font-bold gold-gradient-text tracking-widest">命運星圖 · 塔羅殿堂</span>
+            </div>
+            <button id="restartBtn" onclick="resetApp()" class="hidden text-xs md:text-sm px-4 py-2 rounded-full border border-amber-500/50 text-amber-300 hover:bg-amber-500/10 transition-all font-mystical tracking-wider">
+                <i class="fa-solid fa-rotate-right mr-1"></i> 重新占卜
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow flex items-center justify-center p-4 md:p-8 relative z-10">
+        <div class="w-full max-w-4xl mx-auto">
+
+            <!-- STEP 1: Topic & Spread Selection -->
+            <section id="step1" class="space-y-8 animate-fade-in">
+                <div class="text-center space-y-3">
+                    <h1 class="font-mystical text-3xl md:text-5xl font-bold gold-gradient-text tracking-wider">資深牌師靈性心靈指引</h1>
+                    <p class="text-gray-400 text-sm md:text-base font-light">請在內心靜心默念您的困惑或所求之事，由專業塔羅牌師與高畫質象徵圖騰為您提供深度解析。</p>
+                </div>
+
+                <!-- Topic Cards -->
+                <div class="space-y-4">
+                    <label class="block font-mystical text-amber-200 text-sm md:text-base tracking-wide">1. 選擇占卜領域</label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div onclick="selectTopic('general', this)" class="topic-card cursor-pointer p-4 rounded-xl border border-amber-500 bg-purple-900/40 transition-all backdrop-blur-sm text-center group" data-topic="general">
+                            <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-purple-900/60 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                            </div>
+                            <h3 class="font-mystical text-amber-100 font-semibold mb-1">整體運勢</h3>
+                            <p class="text-xs text-gray-400">生命藍圖與宏觀能量流向</p>
+                        </div>
+                        <div onclick="selectTopic('love', this)" class="topic-card cursor-pointer p-4 rounded-xl border border-purple-900/60 bg-purple-950/20 hover:border-amber-500/80 transition-all backdrop-blur-sm text-center group" data-topic="love">
+                            <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-purple-900/40 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-heart text-lg"></i>
+                            </div>
+                            <h3 class="font-mystical text-amber-100 font-semibold mb-1">愛情情感</h3>
+                            <p class="text-xs text-gray-400">情感連結、潛意識與關係動態</p>
+                        </div>
+                        <div onclick="selectTopic('career', this)" class="topic-card cursor-pointer p-4 rounded-xl border border-purple-900/60 bg-purple-950/20 hover:border-amber-500/80 transition-all backdrop-blur-sm text-center group" data-topic="career">
+                            <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-purple-900/40 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-briefcase text-lg"></i>
+                            </div>
+                            <h3 class="font-mystical text-amber-100 font-semibold mb-1">事業學業</h3>
+                            <p class="text-xs text-gray-400">職場戰略、決策盲點與成就契機</p>
+                        </div>
+                        <div onclick="selectTopic('wealth', this)" class="topic-card cursor-pointer p-4 rounded-xl border border-purple-900/60 bg-purple-950/20 hover:border-amber-500/80 transition-all backdrop-blur-sm text-center group" data-topic="wealth">
+                            <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-purple-900/40 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-coins text-lg"></i>
+                            </div>
+                            <h3 class="font-mystical text-amber-100 font-semibold mb-1">財運投資</h3>
+                            <p class="text-xs text-gray-400">物質流動、價值評估與風險控管</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spread Selection -->
+                <div class="space-y-4">
+                    <label class="block font-mystical text-amber-200 text-sm md:text-base tracking-wide">2. 選擇牌陣模式</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div onclick="selectSpread(1, this)" class="spread-card cursor-pointer p-5 rounded-xl border border-amber-500 bg-amber-500/10 transition-all flex items-center space-x-4" data-spread="1">
+                            <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-300 font-mystical font-bold text-lg">1</div>
+                            <div>
+                                <h3 class="font-mystical text-amber-100 font-semibold text-lg">單張牌深層指引</h3>
+                                <p class="text-xs text-gray-300">精準直擊核心本質，剖析當下最迫切的能量頻率。</p>
+                            </div>
+                        </div>
+                        <div onclick="selectSpread(3, this)" class="spread-card cursor-pointer p-5 rounded-xl border border-purple-900/60 bg-purple-950/20 hover:border-amber-500/80 transition-all flex items-center space-x-4" data-spread="3">
+                            <div class="w-10 h-10 rounded-full bg-purple-900/40 flex items-center justify-center text-amber-300 font-mystical font-bold text-lg">3</div>
+                            <div>
+                                <h3 class="font-mystical text-amber-100 font-semibold text-lg">三張牌陣（過去根源 / 現在狀態 / 未來發展）</h3>
+                                <p class="text-xs text-gray-300">全面解構事件的前因後果、潛意識盲點與演變趨勢。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Question Input -->
+                <div class="space-y-2">
+                    <label class="block font-mystical text-amber-200 text-sm md:text-base tracking-wide">3. 您的具體疑問或困境（選填）</label>
+                    <input type="text" id="userQuestion" placeholder="例如：面對目前的職場瓶頸，我應該堅持還是轉換跑道？" class="w-full bg-tarot-cardBg border border-purple-900/80 rounded-xl px-4 py-3 text-amber-100 placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors">
+                </div>
+
+                <!-- Start Button -->
+                <div class="pt-4 text-center">
+                    <button onclick="startDrawing()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 text-tarot-dark font-mystical font-bold text-lg shadow-lg hover:shadow-amber-500/30 hover:scale-[1.02] transition-all tracking-wider">
+                        <i class="fa-solid fa-hand-sparkles mr-2"></i> 開始洗牌與抽取命運卡牌
+                    </button>
+                </div>
+            </section>
+
+            <!-- STEP 2: Shuffling & Card Selection -->
+            <section id="step2" class="hidden space-y-8 text-center animate-fade-in">
+                <div class="space-y-3">
+                    <h2 class="font-mystical text-2xl md:text-4xl font-bold gold-gradient-text tracking-wider" id="instructionTitle">塔羅牌陣重組中...</h2>
+                    <p class="text-gray-400 text-sm md:text-base font-light" id="instructionDesc">牌師正協助您連結集體潛意識，請沈澱思緒...</p>
+                </div>
+
+                <!-- Shuffling animation container -->
+                <div id="shufflingArea" class="py-12 flex justify-center items-center min-h-[300px]">
+                    <div class="relative w-32 h-48 md:w-40 md:h-60">
+                        <div class="absolute inset-0 tarot-card-back rounded-xl shadow-2xl animate-pulse transform -rotate-6"></div>
+                        <div class="absolute inset-0 tarot-card-back rounded-xl shadow-2xl animate-pulse transform rotate-3"></div>
+                        <div class="absolute inset-0 tarot-card-back rounded-xl shadow-2xl shimmer-effect border-2 border-amber-500/80 flex items-center justify-center">
+                            <i class="fa-solid fa-star-of-life text-amber-400 text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Deck Selection Area -->
+                <div id="deckSelectionArea" class="hidden space-y-4">
+                    <p class="font-mystical text-amber-200 text-sm animate-bounce" id="selectPrompt">請憑直覺選出 <span id="requiredCount">1</span> 張牌</p>
+                    <div id="cardDeckGrid" class="flex flex-wrap justify-center gap-3 md:gap-4 max-w-3xl mx-auto py-4">
+                        <!-- Generated via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 3: Results & Professional Reading -->
+            <section id="step3" class="hidden space-y-8 animate-fade-in">
+                <div class="text-center space-y-2">
+                    <h2 class="font-mystical text-2xl md:text-4xl font-bold gold-gradient-text tracking-wider">資深牌師靈性解析報告</h2>
+                    <p class="text-gray-400 text-sm font-light" id="summaryTopicDisplay">領域：整體運勢</p>
+                </div>
+
+                <!-- Selected Cards Display Grid -->
+                <div id="resultCardsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center items-center">
+                    <!-- Dynamic cards with SVG illustrations will appear here -->
+                </div>
+
+                <!-- Professional Tarot Reading Report Box -->
+                <div class="bg-tarot-cardBg border border-amber-500/40 rounded-2xl p-6 md:p-8 space-y-6 shadow-2xl backdrop-blur-md relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="flex items-center space-x-3 border-b border-purple-900/60 pb-4">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400">
+                            <i class="fa-solid fa-scroll text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-mystical text-amber-100 font-bold text-lg md:text-xl">牌師解讀與戰略分析</h3>
+                            <p class="text-xs text-gray-400">結合專業象徵學、榮格潛意識原型與實質行動指引</p>
+                        </div>
+                    </div>
+
+                    <div id="aiReadingContent" class="space-y-6 text-gray-300 text-sm md:text-base leading-relaxed font-light">
+                        <!-- Reading generated text -->
+                    </div>
+
+                    <div class="pt-4 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-purple-900/60">
+                        <button onclick="shareReading()" class="w-full md:w-auto px-6 py-2.5 rounded-xl border border-purple-900 bg-purple-950/40 text-amber-200 hover:bg-purple-900/50 transition-all text-sm font-mystical">
+                            <i class="fa-solid fa-share-nodes mr-2"></i> 複製專業解讀報告
+                        </button>
+                        <button onclick="resetApp()" class="w-full md:w-auto px-8 py-3 rounded-xl bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 text-tarot-dark font-mystical font-bold text-sm shadow-md hover:scale-105 transition-all">
+                            <i class="fa-solid fa-rotate-right mr-2"></i> 再次進行占卜
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-4 text-center border-t border-purple-900/40 text-xs text-gray-500 font-light relative z-10">
+        <p>&copy; 2026 神秘塔羅殿堂 · 資深牌師沈浸式心靈指引平台（無音效純淨版）</p>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const tarotDeck = [
+            { 
+                id: 0, name: "0. 愚者 (The Fool)", element: "風象能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <defs><linearGradient id="g0" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2a2450"/><stop offset="100%" stop-color="#0d0a1a"/></linearGradient></defs>
+                    <rect width="120" height="180" rx="10" fill="url(#g0)" stroke="#c5a059" stroke-width="2"/>
+                    <circle cx="60" cy="55" r="28" fill="#f5d77f" opacity="0.2"/>
+                    <!-- Mountain and cliff SVG -->
+                    <path d="M10 160 L50 90 L90 160 Z" fill="#3b2d63" opacity="0.8"/>
+                    <path d="M40 160 L80 110 L115 160 Z" fill="#52418a" opacity="0.6"/>
+                    <!-- Sun -->
+                    <circle cx="85" cy="45" r="14" fill="#ffd700" filter="drop-shadow(0 0 6px #ffd700)"/>
+                    <!-- Little traveler silhouette & dog -->
+                    <circle cx="45" cy="80" r="7" fill="#f5d77f"/>
+                    <path d="M42 87 Q45 110 38 125" stroke="#f5d77f" stroke-width="3" fill="none"/>
+                    <circle cx="58" cy="118" r="4" fill="#f5d77f"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE FOOL</text>
+                </svg>`,
+                upright: {
+                    core: "無限的純真潛能、跳躍性的突破、無畏的冒險精神",
+                    mind: "內心渴望擺脫傳統束縛，帶著赤子之心迎接生命新局，直覺力極強。",
+                    advice: "放下過度的理性計算，相信你的直覺去嘗試新事物，但同時保有對未知的基本敬畏。",
+                    fortune: {
+                        general: "生命迎來嶄新轉折點，無懼未知將是最大優勢。",
+                        love: "純粹的怦然心動，或是關係中需要更多新鮮感與包容。",
+                        career: "充滿創造力的全新企劃或轉職契機，適合大膽開創。",
+                        wealth: "財務上帶有冒險性質，切忌投機，但小額嘗試無妨。"
+                    }
+                },
+                reversed: {
+                    core: "盲目躁進、缺乏風險意識、逃避責任、畏首畏尾",
+                    mind: "潛意識中對未知感到焦慮，卻又急於衝動行事，導致漏洞百出。",
+                    advice: "暫緩衝動的決定，檢視計畫中的隱藏風險，建立實踐的安全邊際。",
+                    fortune: {
+                        general: "當心因一時衝動或輕率決策而陷入混亂。",
+                        love: "對感情不夠成熟負責，容易因三分鐘熱度而受傷。",
+                        career: "計畫缺乏周全考量，容易在細節上翻車或半途而廢。",
+                        wealth: "財務流失風險高，不宜進行高風險短線投資。"
+                    }
+                }
+            },
+            { 
+                id: 1, name: "1. 魔術師 (The Magician)", element: "水星守護",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#131022" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Infinity symbol -->
+                    <path d="M40 50 Q60 30 60 50 Q60 70 80 50 Q60 30 60 50 Q60 70 40 50 Z" fill="none" stroke="#ffd700" stroke-width="3" filter="drop-shadow(0 0 5px #ffd700)"/>
+                    <circle cx="60" cy="50" r="18" fill="#ffd700" opacity="0.1"/>
+                    <!-- Altar table & tools -->
+                    <rect x="30" y="115" width="60" height="8" rx="2" fill="#c5a059"/>
+                    <line x1="60" y1="75" x2="60" y2="115" stroke="#ffd700" stroke-width="2"/>
+                    <circle cx="40" cy="110" r="4" fill="#ffd700"/>
+                    <polygon points="60,98 63,108 57,108" fill="#ffd700"/>
+                    <rect x="73" y="106" width="6" height="8" fill="#ffd700"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE MAGICIAN</text>
+                </svg>`,
+                upright: {
+                    core: "資源整合、掌控局勢、意志力的具現化、溝通表達",
+                    mind: "心智清晰，意識與潛意識高度一致，具備解決問題的萬全工具。",
+                    advice: "善用身邊現有的資源與人脈，將想法付諸實際行動，主導權就在你手中。",
+                    fortune: {
+                        general: "萬事俱備，正是展現個人實力與影響力的最佳時機。",
+                        love: "溝通順暢，魅力四射，能主動掌握情感的主導權。",
+                        career: "專案推動順利，溝通與談判能力獲得高度肯定。",
+                        wealth: "憑藉專業技能與靈活思維創造穩定收益。"
+                    }
+                },
+                reversed: {
+                    core: "能力受限、意志不堅、言語欺騙、資源錯置",
+                    mind: "感到有力無處使，或過度依賴小聰明，導致信任感崩解。",
+                    advice: "誠實面對自己的實力極限，回歸基本功，停止華而不實的花招。",
+                    fortune: {
+                        general: "計畫因溝通不良或準備不足而延宕。",
+                        love: "流於表面甜言蜜語，缺乏真心實意的深度交流。",
+                        career: "遭遇溝通障礙或職權被架空，需防範小人背後動作。",
+                        wealth: "易因資訊不對稱或盲目聽信他人而破財。"
+                    }
+                }
+            },
+            { 
+                id: 2, name: "2. 女祭司 (The High Priestess)", element: "月亮守護",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#0c0918" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Pillars B and J -->
+                    <rect x="25" y="45" width="12" height="100" fill="#52418a"/>
+                    <rect x="83" y="45" width="12" height="100" fill="#2d1b4e" stroke="#c5a059" stroke-width="1"/>
+                    <!-- Veil of pomegranates -->
+                    <path d="M37 55 Q60 85 83 55" fill="none" stroke="#d97706" stroke-width="4"/>
+                    <!-- Crescent Moon at feet -->
+                    <path d="M45 130 Q60 145 75 130 Q60 138 45 130 Z" fill="#ffd700"/>
+                    <circle cx="60" cy="85" r="16" fill="#ffd700" opacity="0.2"/>
+                    <text x="60" y="170" font-size="8" fill="#c5a059" text-anchor="middle" font-family="Cinzel">HIGH PRIESTESS</text>
+                </svg>`,
+                upright: {
+                    core: "內在智慧、直覺啟示、神祕靜定、潛意識探索",
+                    mind: "理性與感性達到平衡，能敏銳察覺他人未言說的真實意圖。",
+                    advice: "此時不宜過度躁進或向外求索，應聆聽內在聲音，保持客觀冷靜的觀察者視角。",
+                    fortune: {
+                        general: "適合進修、沈澱與自我內省，真相將在平靜中浮現。",
+                        love: "精神上的深層共鳴，但也可能帶有一絲冷漠與距離感。",
+                        career: "幕後策劃優於台前表現，需防範職場暗潮與政治角力。",
+                        wealth: "財務保守為宜，不宜過度擴張，看緊荷包。"
+                    }
+                },
+                reversed: {
+                    core: "直覺受阻、情緒冷漠、表面化、隱瞞秘密",
+                    mind: "內心焦慮不安，忽視直覺警告，導致判斷失準或陷入迷惘。",
+                    advice: "卸下防備與冷漠，真誠與周遭溝通，避免過度揣測而產生誤解。",
+                    fortune: {
+                        general: "因資訊不透明或內心封閉而錯失關鍵機會。",
+                        love: "情感溝通受阻，猜忌心加重，缺乏安全感。",
+                        career: "職場秘密曝光或因情緒化決策導致誤判形勢。",
+                        wealth: "因盲目跟風或不當猜測導致金錢損失。"
+                    }
+                }
+            },
+            { 
+                id: 3, name: "3. 皇后 (The Empress)", element: "金星守護",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#18132d" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Star crown / Venus symbol / heart nature -->
+                    <circle cx="60" cy="65" r="22" fill="#d97706" opacity="0.3"/>
+                    <path d="M60 40 L65 52 L78 52 L68 60 L71 72 L60 64 L49 72 L52 60 L42 52 L55 52 Z" fill="#ffd700"/>
+                    <path d="M35 120 Q60 90 85 120 Q60 150 35 120 Z" fill="none" stroke="#ffd700" stroke-width="2"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE EMPRESS</text>
+                </svg>`,
+                upright: {
+                    core: "物質豐盛、創造力、溫暖滋養、大自然能量",
+                    mind: "心靈滿足，充滿包容力與藝術審美，享受當下的美好與安適。",
+                    advice: "學會愛自己、滋養身心，並大方接受生命所賜予的豐盛與餽贈。",
+                    fortune: {
+                        general: "收穫豐碩，各項計畫進入繁榮成果期。",
+                        love: "溫馨和諧，彼此照顧，感情迎來穩定與甜蜜發展。",
+                        career: "團隊凝聚力高，創意與美學相關領域獲得巨大成就。",
+                        wealth: "財源廣進，物質生活優渥，具備良好的投資回報。"
+                    }
+                },
+                reversed: {
+                    core: "依賴過度、貧瘠感、自我照顧不足、揮霍無度",
+                    mind: "內心感到匱乏，或因過度溺愛與依賴而失去了獨立自主的能力。",
+                    advice: "建立健康的自我邊界，重新找回生活的主控權與內在價值。",
+                    fortune: {
+                        general: "進展受阻，容易流於安逸或因奢侈而導致財務失衡。",
+                        love: "一方過度付出或控制，導致關係失去平衡與喘息空間。",
+                        career: "工作缺乏效率與紀律，創意枯竭或怠惰。",
+                        wealth: "財務管理失控，有揮霍或衝動購物的傾向。"
+                    }
+                }
+            },
+            { 
+                id: 4, name: "4. 皇帝 (The Emperor)", element: "牡羊座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#1a1128" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Ram horns & majestic throne -->
+                    <path d="M35 70 Q25 45 45 45 Q55 45 55 65" fill="none" stroke="#ffd700" stroke-width="3"/>
+                    <path d="M85 70 Q95 45 75 45 Q65 45 65 65" fill="none" stroke="#ffd700" stroke-width="3"/>
+                    <rect x="40" y="75" width="40" height="60" fill="none" stroke="#c5a059" stroke-width="2"/>
+                    <polygon points="60,40 68,55 52,55" fill="#ffd700"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE EMPEROR</text>
+                </svg>`,
+                upright: {
+                    core: "絕對權威、堅實結構、領導力、紀律與理性",
+                    mind: "思維邏輯嚴密，具備強大的責任感與開疆闢土的決斷力。",
+                    advice: "建立明確的規則與秩序，以堅定的意志與紀律來統籌大局。",
+                    fortune: {
+                        general: "以實力與組織力奠定基業，獲得他人尊敬與依賴。",
+                        love: "關係中渴望主導或尋求安全穩固的長期承諾。",
+                        career: "升遷掌權或接手核心管理職，執行力備受肯定。",
+                        wealth: "財務規劃穩健，重視長遠資產配置與風險控管。"
+                    }
+                },
+                reversed: {
+                    core: "獨裁專斷、結構僵化、失去控制、缺乏彈性",
+                    mind: "過度控制欲或因固執己見而聽不進他人建言，導致衝突。",
+                    advice: "放下威權姿態，適度展現同理心與應變的彈性。",
+                    fortune: {
+                        general: "因過度固執或權力衝突而導致局勢失控。",
+                        love: "大男人/大女人主義過重，溝通陷入高壓對立。",
+                        career: "遭遇官僚體制壓迫或因管理失當引起團隊反彈。",
+                        wealth: "因過於自信或冒進的擴張導致資金周轉壓力。"
+                    }
+                }
+            },
+            { 
+                id: 5, name: "5. 教皇 (The Hierophant)", element: "金牛座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#131022" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Triple cross / Keys -->
+                    <circle cx="60" cy="55" r="18" fill="none" stroke="#ffd700" stroke-width="2"/>
+                    <line x1="60" y1="40" x2="60" y2="120" stroke="#ffd700" stroke-width="3"/>
+                    <line x1="50" y1="65" x2="70" y2="65" stroke="#ffd700" stroke-width="3"/>
+                    <line x1="53" y1="80" x2="67" y2="80" stroke="#ffd700" stroke-width="3"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">HIEROPHANT</text>
+                </svg>`,
+                upright: {
+                    core: "正統信仰、心靈導師、體制認同、道德規範",
+                    mind: "重視精神價值與社會規範，尋求正統、專業或長者的指引。",
+                    advice: "遵循既有的優良傳統與規則，尋求值得信賴的導師協助。",
+                    fortune: {
+                        general: "在規範與體制內穩步前進，獲得貴人或導師提攜。",
+                        love: "關係走向傳統承諾（如訂婚、結婚），價值觀高度契合。",
+                        career: "合約簽訂順利，遵循專業倫理與公司體制可獲保障。",
+                        wealth: "理財保守穩健，適合透過信託或正統管道配置。"
+                    }
+                },
+                reversed: {
+                    core: "打破常規、異端、盲目順從、教條主義失靈",
+                    mind: "渴望掙脫體制束縛，對權威產生懷疑與叛逆心理。",
+                    advice: "打破陳腐教條，但同時需建立個人的道德底線與獨立思考能力。",
+                    fortune: {
+                        general: "因挑戰現狀或違反常規而遭遇阻力與非議。",
+                        love: "價值觀或家庭背景產生強烈衝突，承諾受考驗。",
+                        career: "合約條文陷阱或體制僵化導致發展受限。",
+                        wealth: "切忌聽信非正統的明牌或投機炒作。"
+                    }
+                }
+            },
+            { 
+                id: 6, name: "6. 戀人 (The Lovers)", element: "雙子座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#1c1124" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Angel wings and hearts -->
+                    <path d="M60 40 Q40 30 35 60 Q45 80 60 70 Q75 80 85 60 Q80 30 60 40 Z" fill="#ffd700" opacity="0.8"/>
+                    <circle cx="45" cy="110" r="14" fill="#52418a"/>
+                    <circle cx="75" cy="110" r="14" fill="#52418a"/>
+                    <path d="M55 125 Q60 115 65 125" fill="none" stroke="#ffd700" stroke-width="2"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE LOVERS</text>
+                </svg>`,
+                upright: {
+                    core: "靈魂連結、重大價值抉擇、和諧關係、合作無間",
+                    mind: "面臨人生重要十字路口，心靈與情感面臨深刻的對接與選擇。",
+                    advice: "聆聽內心最真實的價值觀，做出忠於靈魂的承諾與抉擇。",
+                    fortune: {
+                        general: "迎來黃金合作契機或關係的深刻融合期。",
+                        love: "真愛降臨或伴侶關係高度契合，充滿浪漫與理解。",
+                        career: "強強聯手、合夥事業大吉，決策方向大受好評。",
+                        wealth: "因正確的合作與價值評估帶來雙贏財富。"
+                    }
+                },
+                reversed: {
+                    core: "價值觀分歧、猶豫不決、誘惑背叛、關係失和",
+                    mind: "面臨選擇時左右為難，內心出現道德衝突或信任危機。",
+                    advice: "釐清內心真正的核心需求，切忌三心二意或逃避承諾。",
+                    fortune: {
+                        general: "因決策反覆或缺乏溝通而導致合作破裂。",
+                        love: "出現信任危機或第三者干擾，價值觀天差地遠。",
+                        career: "合夥人意見分歧，合約細節談判陷入僵局。",
+                        wealth: "因情感用事或錯誤投資決策導致金錢損失。"
+                    }
+                }
+            },
+            { 
+                id: 7, name: "7. 戰車 (The Chariot)", element: "巨蟹座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#0d111a" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Chariot box and canopy stars -->
+                    <rect x="35" y="80" width="50" height="45" rx="4" fill="none" stroke="#ffd700" stroke-width="2"/>
+                    <path d="M30 80 L60 55 L90 80 Z" fill="#2d1b4e" stroke="#c5a059" stroke-width="1.5"/>
+                    <circle cx="60" cy="110" r="10" fill="#ffd700" opacity="0.3"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE CHARIOT</text>
+                </svg>`,
+                upright: {
+                    core: "凱旋勝利、堅定意志、克服障礙、掌控方向",
+                    mind: "企圖心強烈，能將內在矛盾整合為一股向前的強大推進力。",
+                    advice: "保持高度的專注與紀律，全速衝刺，勝利就在前方。",
+                    fortune: {
+                        general: "披荊斬棘，突破重重難關，贏得最終勝利。",
+                        love: "主動積極追求感情，能打破僵局推進關係。",
+                        career: "競爭中脫穎而出，專案順利達標，掌控全局。",
+                        wealth: "憑藉實力與衝勁開拓財源，投資回收快速。"
+                    }
+                },
+                reversed: {
+                    core: "失去控制、方向錯誤、急躁冒進、遭遇挫敗",
+                    mind: "內在拉扯嚴重，方向不明卻盲目蠻幹，導致精疲力竭。",
+                    advice: "先踩煞車重新定位方向，修補內部漏洞再出發。",
+                    fortune: {
+                        general: "因操之過急或方向錯誤而導致人仰馬翻。",
+                        love: "情緒失控或過度強勢導致關係破裂。",
+                        career: "職場競爭失利或因內耗嚴重而停滯不前。",
+                        wealth: "投資失控或盲目追高導致嚴重虧損。"
+                    }
+                }
+            },
+            { 
+                id: 8, name: "8. 力量 (The Strength)", element: "獅子座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#181010" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Infinity over lion head -->
+                    <path d="M45 45 Q60 30 60 45 Q60 60 75 45 Q60 30 60 45" fill="none" stroke="#ffd700" stroke-width="2"/>
+                    <circle cx="60" cy="100" r="24" fill="#d97706" opacity="0.2"/>
+                    <circle cx="60" cy="100" r="14" fill="#ffd700" opacity="0.4"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">STRENGTH</text>
+                </svg>`,
+                upright: {
+                    core: "內在勇氣、溫柔耐性、自我掌控、馴服野性",
+                    mind: "以柔克剛的成熟心智，不需靠強權壓制即可征服困難。",
+                    advice: "運用慈悲心與耐性面對挑戰，相信自己的內在力量。",
+                    fortune: {
+                        general: "以大智慧化解危機，贏得長期尊重。",
+                        love: "用包容與體貼融化對方，感情穩固甜蜜。",
+                        career: "面對棘手客戶或危機展現高超EQ，化險為夷。",
+                        wealth: "財務狀況漸入佳境，理性消費與配置奏效。"
+                    }
+                },
+                reversed: {
+                    core: "自我懷疑、脾氣暴躁、內心軟弱、失控爆發",
+                    mind: "自信心不足，或因壓抑過久而情緒失控、失去耐性。",
+                    advice: "正視內心的恐懼與陰暗面，學會先安頓自己再處理外務。",
+                    fortune: {
+                        general: "因失去信心或情緒失控而讓局勢惡化。",
+                        love: "因缺乏安全感而表現出控制或暴躁態度。",
+                        career: "面對壓力容易氣餒，或與主管同事發生摩擦。",
+                        wealth: "因情緒性消費而破財。"
+                    }
+                }
+            },
+            { 
+                id: 9, name: "9. 隱士 (The Hermit)", element: "處女座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#0c0e14" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Lantern with glowing star -->
+                    <circle cx="60" cy="70" r="16" fill="#ffd700" filter="drop-shadow(0 0 10px #ffd700)"/>
+                    <path d="M52 55 H68 V85 H52 Z" fill="none" stroke="#333" stroke-width="2"/>
+                    <path d="M40 145 Q60 110 80 145" fill="none" stroke="#52418a" stroke-width="4"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE HERMIT</text>
+                </svg>`,
+                upright: {
+                    core: "內在省思、尋找真理、孤獨沈澱、明燈指引",
+                    mind: "渴望遠離喧囂，進行深度的自我靈魂對話與知識探索。",
+                    advice: "抽身暫退一步，留給自己專屬的靜心時間，答案就在心中。",
+                    fortune: {
+                        general: "沉潛學習的最佳時機，真知灼見將指引未來。",
+                        love: "需要給彼此各自獨立思考的空間與時間。",
+                        career: "適合深度研究、技術扎根或獨立作業。",
+                        wealth: "看淡物質慾望，適合做長遠保守的財務規劃。"
+                    }
+                },
+                reversed: {
+                    core: "過度孤立、拒絕溝通、封閉迷失、孤獨感",
+                    mind: "陷入過度封閉與孤僻，抗拒外界關懷，導致鑽牛角尖。",
+                    advice: "走出自我封閉的小世界，與信任的友人分享心事。",
+                    fortune: {
+                        general: "因過度孤立而與社會脫節，錯失支援。",
+                        love: "冷戰、溝通大門緊閉，關係陷入冰點。",
+                        career: "孤軍奮戰導致進度緩慢，缺乏團隊奧援。",
+                        wealth: "過度保守或因資訊封閉錯失理財機會。"
+                    }
+                }
+            },
+            { 
+                id: 10, name: "10. 命運之輪 (Wheel of Fortune)", element: "木星守護",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#131022" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Wheel geometric SVG -->
+                    <circle cx="60" cy="85" r="32" fill="none" stroke="#ffd700" stroke-width="3"/>
+                    <circle cx="60" cy="85" r="8" fill="#ffd700"/>
+                    <line x1="60" y1="53" x2="60" y2="117" stroke="#ffd700" stroke-width="2"/>
+                    <line x1="28" y1="85" x2="92" y2="85" stroke="#ffd700" stroke-width="2"/>
+                    <text x="60" y="170" font-size="8" fill="#c5a059" text-anchor="middle" font-family="Cinzel">WHEEL OF FORTUNE</text>
+                </svg>`,
+                upright: {
+                    core: "命運轉折、順應天意、好運降臨、契機乍現",
+                    mind: "覺察到生命的無常與奧妙，順勢而為，迎向轉運點。",
+                    advice: "把握天時地利人和的契機，順流而上，開創宏觀視野。",
+                    fortune: {
+                        general: "運勢全面回升，轉機與貴人運同步降臨。",
+                        love: "命中註定的相遇或關係迎來關鍵突破轉折。",
+                        career: "外在環境對你有利，抓住機遇實現階級跳躍。",
+                        wealth: "財運亨通，投資迎來收割期或意外之財。"
+                    }
+                },
+                reversed: {
+                    core: "遭遇不順、運勢低谷、抗拒改變、惡性循環",
+                    mind: "感到生不逢時或被命運捉弄，陷入挫折與被動。",
+                    advice: "接受低谷是生命週期的一部分，調整心態，蓄勢待發。",
+                    fortune: {
+                        general: "遭遇短暫亂流，計畫被打亂，需保持耐心。",
+                        love: "溝通不良、誤會頻生，感情陷入低潮期。",
+                        career: "外在環境動盪，面臨組織重組或專案延宕。",
+                        wealth: "財務波動劇烈，避免任何投機行為。"
+                    }
+                }
+            },
+            { 
+                id: 11, name: "11. 正義 (Justice)", element: "天秤座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#151322" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Scale balances -->
+                    <line x1="40" y1="65" x2="80" y2="65" stroke="#ffd700" stroke-width="3"/>
+                    <line x1="60" y1="45" x2="60" y2="120" stroke="#ffd700" stroke-width="2"/>
+                    <path d="M30 65 L40 85 L50 65 Z" fill="none" stroke="#ffd700" stroke-width="2"/>
+                    <path d="M70 65 L80 85 L90 65 Z" fill="none" stroke="#ffd700" stroke-width="2"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">JUSTICE</text>
+                </svg>`,
+                upright: {
+                    core: "公平客觀、理性抉擇、因果報應、合約簽署",
+                    mind: "放下情緒偏見，以絕對的理性與良知來衡量局勢。",
+                    advice: "做正直的事，簽署合約或處理法律事務時務必嚴謹審視細節。",
+                    fortune: {
+                        general: "公道自在人心，過去的努力獲得公正回報。",
+                        love: "雙方追求平等尊重，關係需要理性溝通與平衡。",
+                        career: "合約談判順利，官司或考評獲得公正裁決。",
+                        wealth: "收支平衡，投資理財講求法規與風險評估。"
+                    }
+                },
+                reversed: {
+                    core: "偏見不公、逃避責任、法律糾紛、失衡失信",
+                    mind: "心態失衡，或試圖走捷徑、逃避應負的責任與因果。",
+                    advice: "正視現實中的不公，坦然承擔代價，重建誠信。",
+                    fortune: {
+                        general: "遭遇不公平對待或面臨合約與法律糾紛。",
+                        love: "一方自私自利、計較付出，感情嚴重失衡。",
+                        career: "職場考核不公或因違規面臨懲處。",
+                        wealth: "因財務糾紛或違約而導致損失。"
+                    }
+                }
+            },
+            { 
+                id: 12, name: "12. 倒吊人 (The Hanged Man)", element: "海王星守護",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#101522" stroke="#c5a059" stroke-width="2"/>
+                    <!-- T cross upside down halo -->
+                    <line x1="60" y1="40" x2="60" y2="130" stroke="#ffd700" stroke-width="3"/>
+                    <line x1="40" y1="65" x2="80" y2="65" stroke="#ffd700" stroke-width="3"/>
+                    <circle cx="60" cy="115" r="16" fill="none" stroke="#ffd700" stroke-width="2" filter="drop-shadow(0 0 6px #ffd700)"/>
+                    <text x="60" y="170" font-size="8" fill="#c5a059" text-anchor="middle" font-family="Cinzel">HANGED MAN</text>
+                </svg>`,
+                upright: {
+                    core: "換位思考、暫停犧牲、靈性覺悟、突破盲點",
+                    mind: "自願性的沈澱或奉獻，從全然不同的視角看待生命困境。",
+                    advice: "接受現階段的「暫停與卡關」，這是內在心靈轉化的必經之路。",
+                    fortune: {
+                        general: "以退為進，轉變心態後發現全新的人生風景。",
+                        love: "需要暫時包容與無私付出，等待關係成熟。",
+                        career: "專案暫時擱置，正好利用空檔檢視潛在漏洞。",
+                        wealth: "短期資金凍結，不宜大動作投資。"
+                    }
+                },
+                reversed: {
+                    core: "無謂犧牲、固執己見、停滯抱怨、內耗嚴重",
+                    mind: "感到委屈與白費力氣，卻又無法抽身，陷入抱怨深淵。",
+                    advice: "停止自我犧牲的被害者心態，勇敢斷捨離或改變作法。",
+                    fortune: {
+                        general: "白忙一場，付出沒有得到應有的回報與認可。",
+                        love: "陷入盲目卑微的單戀或毒性關係中無法自拔。",
+                        career: "工作停滯不前，付出與收穫完全不成正比。",
+                        wealth: "資金被套牢，遭遇財務上的沈沒成本陷阱。"
+                    }
+                }
+            },
+            { 
+                id: 13, name: "13. 死神 (Death)", element: "天蠍座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#0d0a12" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Rising sun behind black horizon -->
+                    <circle cx="60" cy="100" r="22" fill="#d97706" opacity="0.4"/>
+                    <path d="M20 110 L100 110" stroke="#ffd700" stroke-width="2"/>
+                    <!-- Butterfly symbol of transformation -->
+                    <path d="M60 85 Q50 70 40 80 Q50 100 60 95 Q70 100 80 80 Q70 70 60 85 Z" fill="#ffd700"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">DEATH</text>
+                </svg>`,
+                upright: {
+                    core: "徹底轉化、舊模式結束、破繭重生、新階段",
+                    mind: "勇敢切斷過去的沈屙與執念，迎接必然的蛻變。",
+                    advice: "不要抗拒改變的發生，唯有徹底結束舊有的，才有空間容納嶄新的美好。",
+                    fortune: {
+                        general: "生活迎來巨幅轉變，揮別過去，重獲新生。",
+                        love: "舊關係徹底轉化（或和平分手），迎向情感成熟期。",
+                        career: "結束不適合的職務或舊專案，迎來全新轉職跑道。",
+                        wealth: "財務重組，清理債務與不良投資組合。"
+                    }
+                },
+                reversed: {
+                    core: "抗拒改變、拖泥帶水、害怕結束、死守過去",
+                    mind: "內心充滿恐懼，不願意放手已經腐朽的人事物或情感。",
+                    advice: "學會對過去道別，停止無謂的掙扎，接受轉變是成長的定律。",
+                    fortune: {
+                        general: "拖延變革導致慢性內耗，局勢僵持不下。",
+                        love: "藕斷絲連、無法走出情傷，互相折磨。",
+                        career: "死守夕陽產業或不肯離開不適任的崗位。",
+                        wealth: "財務死循環，不敢認賠殺出導致虧損擴大。"
+                    }
+                }
+            },
+            { 
+                id: 14, name: "14. 節制 (Temperance)", element: "射手座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#131622" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Two chalices pouring water -->
+                    <path d="M45 75 L55 115 H65 L75 75 Z" fill="none" stroke="#ffd700" stroke-width="2"/>
+                    <path d="M50 65 Q60 90 70 65" fill="none" stroke="#60a5fa" stroke-width="3"/>
+                    <circle cx="60" cy="50" r="8" fill="#ffd700" filter="drop-shadow(0 0 5px #ffd700)"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">TEMPERANCE</text>
+                </svg>`,
+                upright: {
+                    core: "平衡調和、耐心淬鍊、身心療癒、適度圓融",
+                    mind: "心態平和穩定，能將對立的元素完美融合，達到中庸之道。",
+                    advice: "保持耐心與適度原則，透過循序漸進的調整達成長期目標。",
+                    fortune: {
+                        general: "身心安頓，各項事務在調和中穩步向前。",
+                        love: "溝通包容，彼此默契極佳，關係細水長流。",
+                        career: "團隊合作無間，跨部門協調溝通大獲成功。",
+                        wealth: "收支平衡，財務狀況處於安穩健康的成長曲線。"
+                    }
+                },
+                reversed: {
+                    core: "失衡極端、缺乏耐性、衝突不斷、消耗過度",
+                    mind: "生活作息或情緒管理失控，經常處於極端拉扯中。",
+                    advice: "重新找回生活秩序，避免暴飲暴食或情緒大起大落。",
+                    fortune: {
+                        general: "因缺乏耐心與協調而導致內部衝突不斷。",
+                        love: "摩擦頻生，溝通經常擦槍走火，缺乏共識。",
+                        career: "進度因溝通破裂或資源分配不均而停擺。",
+                        wealth: "財務管理失當，開支過度不均。"
+                    }
+                }
+            },
+            { 
+                id: 15, name: "15. 惡魔 (The Devil)", element: "摩羯座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#1c0f10" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Inverted pentagram & chains -->
+                    <polygon points="60,45 72,75 45,57 75,57 48,75" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+                    <path d="M35 120 Q60 95 85 120" fill="none" stroke="#c5a059" stroke-width="3"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE DEVIL</text>
+                </svg>`,
+                upright: {
+                    core: "物質誘惑、執念束縛、內心恐懼、依賴上癮",
+                    mind: "深陷於物質慾望、不健康的情感依附或負面習慣中無法自拔。",
+                    advice: "看清自己內心的恐懼與枷鎖，唯有覺察才是解脫的第一步。",
+                    fortune: {
+                        general: "當心陷入不良誘惑、短視近利或有毒的人際關係。",
+                        love: "沉溺於肉體吸引或互相消耗的控制型伴侶關係。",
+                        career: "被高薪或安逸環境綁架，職場發展受限或面臨道德考驗。",
+                        wealth: "當心金錢誘惑、賭博或高利債務陷阱。"
+                    }
+                },
+                reversed: {
+                    core: "掙脫束縛、覺醒重獲自由、戒除惡習",
+                    mind: "終於看清盲點，下定決心斬斷有毒的關係或不良上癮習慣。",
+                    advice: "勇敢拒絕誘惑，清理生命中所有消耗你能量的人事物。",
+                    fortune: {
+                        general: "走出陰霾，重獲自主權，迎來心靈大解放。",
+                        love: "徹底斬斷有毒戀情，重塑健康的感情觀。",
+                        career: "辭去不適合的工作或擺脫職場潛規則控制。",
+                        wealth: "擺脫負債壓力或不良消費習慣，財務重回正軌。"
+                    }
+                }
+            },
+            { 
+                id: 16, name: "16. 塔 (The Tower)", element: "火星守護",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#180e0e" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Lightning striking tower -->
+                    <rect x="45" y="60" width="30" height="90" fill="#2d1b1b" stroke="#c5a059" stroke-width="2"/>
+                    <path d="M70 30 L45 75 L60 75 L35 120" fill="none" stroke="#ef4444" stroke-width="3.5" filter="drop-shadow(0 0 8px #ef4444)"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE TOWER</text>
+                </svg>`,
+                upright: {
+                    core: "突發衝擊、打破虛幻、破壞後重建、危機降臨",
+                    mind: "過去建立的錯誤認知或虛假結構瞬間崩塌，雖痛卻是必然。",
+                    advice: "接受突如其來的變故，順應毀滅，這是宇宙幫你清除虛假基石的慈悲。",
+                    fortune: {
+                        general: "遭遇突發衝擊與震撼教育，舊有模式宣告終結。",
+                        love: "長期累積的矛盾爆發，面臨分手或關係重組。",
+                        career: "公司重組、裁員或突發專案失敗，需迅速應變。",
+                        wealth: "突發性大筆開銷或投資慘遭滑鐵盧，需預留急用金。"
+                    }
+                },
+                reversed: {
+                    core: "逃過一劫、延遲災難、內心恐慌、抗拒真相",
+                    mind: "危機暫時解除，但內心依舊恐慌不安，不肯徹底面對根本問題。",
+                    advice: "居安思危，主動整頓體質脆弱的部分，切莫心存僥倖。",
+                    fortune: {
+                        general: "虛驚一場，但潛在危機依舊存在，需提早防範。",
+                        love: "衝突暫時壓抑下來，未真正解決核心病灶。",
+                        career: "暫時躲過裁員或危機，但需全面提升競爭力。",
+                        wealth: "財務小漏財，需嚴防保險或突發帳單。"
+                    }
+                }
+            },
+            { 
+                id: 17, name: "17. 星星 (The Star)", element: "水瓶座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#0d1424" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Large 8-pointed star & small stars -->
+                    <path d="M60 45 L64 65 L84 65 L68 76 L74 96 L60 84 L46 96 L52 76 L36 65 L56 65 Z" fill="#ffd700" filter="drop-shadow(0 0 10px #ffd700)"/>
+                    <circle cx="35" cy="110" r="3" fill="#fff"/><circle cx="85" cy="120" r="3" fill="#fff"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE STAR</text>
+                </svg>`,
+                upright: {
+                    core: "希望之光、靈感療癒、信心、光明未來",
+                    mind: "經歷風雨後內心重獲寧靜，充滿對未來的崇高願景與信念。",
+                    advice: "保持信心與理想主義，大膽描繪夢想藍圖，宇宙正庇佑著你。",
+                    fortune: {
+                        general: "陰霾盡散，靈感泉湧，迎來充滿希望的嶄新契機。",
+                        love: "精神契合的純粹戀情，彼此帶來極大心靈療癒。",
+                        career: "創意大發，公關、藝術或遠景規劃獲得高度讚賞。",
+                        wealth: "財務狀況漸趨穩定，投資前景明朗光明。"
+                    }
+                },
+                reversed: {
+                    core: "信心動搖、悲觀失望、理想與現實脫節",
+                    mind: "陷入悲觀主義或過度空想，失去實踐夢想的動力與信心。",
+                    advice: "腳踏實地將理想拆解為可執行的小步驟，找回內在信念。",
+                    fortune: {
+                        general: "期望過高而落空，容易感到失望與迷茫。",
+                        love: "對感情抱持不切實際的幻想，溝通出現落差。",
+                        career: "企劃過於理想化而無法落地，缺乏實質進展。",
+                        wealth: "理財過度樂觀或因聽信明牌而失望破財。"
+                    }
+                }
+            },
+            { 
+                id: 18, name: "18. 月亮 (The Moon)", element: "雙魚座能量",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#0c0d1a" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Crescent moon with face profile -->
+                    <path d="M60 40 Q80 70 60 100 Q45 70 60 40 Z" fill="#ffd700" opacity="0.9" filter="drop-shadow(0 0 8px #ffd700)"/>
+                    <path d="M25 125 Q60 105 95 125" fill="none" stroke="#52418a" stroke-width="3"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE MOON</text>
+                </svg>`,
+                upright: {
+                    core: "潛意識不安、幻覺迷霧、隱藏真相、直覺夢境",
+                    mind: "內心充滿莫名的恐懼與焦慮，局勢不明朗，容易捕風捉影。",
+                    advice: "面對內心的焦慮與不安，不要被幻覺欺騙，耐心等待真相浮現。",
+                    fortune: {
+                        general: "局勢撲朔迷離，充滿變數與不確定性，切忌輕舉妄動。",
+                        love: "猜忌心重、缺乏安全感或隱藏了不為人知的秘密。",
+                        career: "職場資訊不透明，防範小人暗箭或合約陷阱。",
+                        wealth: "財務帳目不清或遭遇詐騙風險，切忌胡亂投資。"
+                    }
+                },
+                reversed: {
+                    core: "看清真相、恐懼消散、撥雲見日、走出迷霧",
+                    mind: "心中的迷惘與恐懼逐漸散去，直覺變得無比準確。",
+                    advice: "真相已經大白，勇敢跨出陰影，迎接清晰的現實。",
+                    fortune: {
+                        general: "撥雲見日，誤會冰釋，各項疑慮終於真相大白。",
+                        love: "解開心結與猜忌，情感關係重回坦誠互動。",
+                        career: "職場暗湧消退，小人陰謀曝光，恢復正常運作。",
+                        wealth: "財務隱患解除，理財規劃重回正軌。"
+                    }
+                }
+            },
+            { 
+                id: 19, name: "19. 太陽 (The Sun)", element: "太陽守護",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#1e180c" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Radiant Sun -->
+                    <circle cx="60" cy="75" r="26" fill="#ffd700" filter="drop-shadow(0 0 15px #ffd700)"/>
+                    <path d="M60 40 L60 30 M60 120 L60 110 M25 75 L15 75 M105 75 L95 75" stroke="#ffd700" stroke-width="3" stroke-linecap="round"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE SUN</text>
+                </svg>`,
+                upright: {
+                    core: "純粹快樂、成功圓滿、無限活力、光明坦途",
+                    mind: "自信心爆棚，內心充滿赤誠的熱情與無與倫比的喜悅。",
+                    advice: "盡情展現你的天賦與熱情，大方享受成功與讚美。",
+                    fortune: {
+                        general: "大吉大利！萬事如意，充滿陽光與正向能量。",
+                        love: "熱烈甜蜜，關係公開透明，充滿歡笑與祝福。",
+                        career: "表現大受矚目，升遷、加薪或創業大獲成功。",
+                        wealth: "財運大好，正財豐收，投資獲利亮眼。"
+                    }
+                },
+                reversed: {
+                    core: "短暫延遲、過度樂觀、自信不足、陽光被遮蔽",
+                    mind: "成功來得比預期稍晚，或因過度自滿而忽略了潛在細節。",
+                    advice: "保持謙虛審慎，莫因一時順遂而鬆懈大意。",
+                    fortune: {
+                        general: "好運稍有延遲，但大局無礙，只需多點耐心。",
+                        love: "溝通熱情短暫冷卻，或因過於孩子氣而摩擦。",
+                        career: "成果比預期略有打折，需加強細節收尾。",
+                        wealth: "開支略有超支，避免打腫臉充胖子式消費。"
+                    }
+                }
+            },
+            { 
+                id: 20, name: "20. 審判 (The Judgement)", element: "冥王星守護",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#141022" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Angel trumpet -->
+                    <circle cx="60" cy="55" r="14" fill="#ffd700" opacity="0.3"/>
+                    <path d="M60 40 L45 80 L75 80 Z" fill="#ffd700"/>
+                    <line x1="60" y1="80" x2="60" y2="130" stroke="#ffd700" stroke-width="3"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">JUDGEMENT</text>
+                </svg>`,
+                upright: {
+                    core: "深度覺醒、全面審視、召喚重生、因果清算",
+                    mind: "聽到內心的神聖召喚，過去的一切努力迎來最終的客觀總結。",
+                    advice: "誠實審視過去的成敗得失，放下舊我，勇敢接受生命的全新召喚。",
+                    fortune: {
+                        general: "沈冤得雪或過去的努力獲得全面肯定與解答。",
+                        love: "關係面臨深刻審視，修復過去傷痕或做出最終決定。",
+                        career: "考運、面試、審核大吉，通過嚴格評選脫穎而出。",
+                        wealth: "過去的投資或回收迎來最終結算，獲得應得收益。"
+                    }
+                },
+                reversed: {
+                    core: "自我懷疑、逃避審視、錯失良機、懊悔不已",
+                    mind: "逃避面對過去的錯誤，或因過度自我批判而停滯不前。",
+                    advice: "學會原諒過去的自己，停止懊悔，勇敢面對當下的審判。",
+                    fortune: {
+                        general: "因逃避現實與檢討而陷入鬼打牆的惡性循環。",
+                        love: "舊事重提、翻舊帳，關係因無法釋懷而僵持。",
+                        career: "考核未過或錯失關鍵轉職良機，需深刻反省。",
+                        wealth: "因過去財務疏失付出的代價與懊惱。"
+                    }
+                }
+            },
+            { 
+                id: 21, name: "21. 世界 (The World)", element: "土星守護",
+                svg: `<svg viewBox="0 0 120 180" class="w-full h-full drop-shadow-md">
+                    <rect width="120" height="180" rx="10" fill="#121622" stroke="#c5a059" stroke-width="2"/>
+                    <!-- Laurel wreath circle -->
+                    <ellipse cx="60" cy="85" rx="28" ry="36" fill="none" stroke="#ffd700" stroke-width="3"/>
+                    <circle cx="60" cy="85" r="16" fill="#52418a" opacity="0.6"/>
+                    <text x="60" y="170" font-size="9" fill="#c5a059" text-anchor="middle" font-family="Cinzel">THE WORLD</text>
+                </svg>`,
+                upright: {
+                    core: "圓滿結局、心靈整合、目標達成、全球視野",
+                    mind: "經歷完整生命歷練後的融會貫通，內心感到無比的完整與平靜。",
+                    advice: "慶祝階段性的完美成果，並準備好心態，迎接下一場更高維度的冒險。",
+                    fortune: {
+                        general: "大圓滿！長期努力的目標終於完美達成。",
+                        love: "開花結果，攜手步入人生下一個幸福階段。",
+                        career: "大型專案完美收官，國際化發展或學業大成。",
+                        wealth: "財務自由度提升，資產配置達到理想的圓滿豐收。"
+                    }
+                },
+                reversed: {
+                    core: "差一步成功、未完待續、缺乏成就感、停滯",
+                    mind: "在最後關頭感到力不從心，或因缺乏完美的收尾而感到遺憾。",
+                    advice: "不要放棄最後一哩路，補全最後的細節就能完美收官。",
+                    fortune: {
+                        general: "黎明前的最後一段考驗，切忌功虧一匱。",
+                        love: "婚期或承諾略有延宕，需加強最後的溝通協調。",
+                        career: "專案卡在最後審批階段，需耐心處理尾聲細節。",
+                        wealth: "投資回收期稍微拉長，資金回籠再等等。"
+                    }
+                }
+            }
+        ];
+
+        let currentTopic = 'general';
+        let currentSpread = 1; // 1 or 3
+        let selectedCards = [];
+        let drawnCardObjects = [];
+
+        const topicNames = {
+            general: '整體運勢',
+            love: '愛情情感',
+            career: '事業學業',
+            wealth: '財運投資'
+        };
+
+        const spreadPositionNames = {
+            1: ['核心指引'],
+            3: ['過去根源', '現在狀態', '未來發展']
+        };
+
+        function selectTopic(topic, element) {
+            currentTopic = topic;
+            document.querySelectorAll('.topic-card').forEach(card => {
+                card.classList.remove('border-amber-500', 'bg-purple-900/40');
+                card.classList.add('border-purple-900/60', 'bg-purple-950/20');
+            });
+            element.classList.remove('border-purple-900/60', 'bg-purple-950/20');
+            element.classList.add('border-amber-500', 'bg-purple-900/40');
+        }
+
+        function selectSpread(spreadCount, element) {
+            currentSpread = spreadCount;
+            document.querySelectorAll('.spread-card').forEach(card => {
+                card.classList.remove('border-amber-500', 'bg-amber-500/10');
+                card.classList.add('border-purple-900/60', 'bg-purple-950/20');
+            });
+            element.classList.remove('border-purple-900/60', 'bg-purple-950/20');
+            element.classList.add('border-amber-500', 'bg-amber-500/10');
+            document.getElementById('requiredCount').innerText = spreadCount;
+        }
+
+        function startDrawing() {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            document.getElementById('restartBtn').classList.remove('hidden');
+
+            selectedCards = [];
+            document.getElementById('shufflingArea').classList.remove('hidden');
+            document.getElementById('deckSelectionArea').classList.add('hidden');
+            document.getElementById('instructionTitle').innerText = "塔羅牌陣重組中...";
+            document.getElementById('instructionDesc').innerText = "牌師正協助您連結集體潛意識，請沈澱思緒...";
+
+            setTimeout(() => {
+                document.getElementById('shufflingArea').classList.add('hidden');
+                document.getElementById('deckSelectionArea').classList.remove('hidden');
+                document.getElementById('instructionTitle').innerText = "請憑直覺抽取卡牌";
+                document.getElementById('instructionDesc').innerText = `您選擇了「${topicNames[currentTopic]}」與 ${currentSpread} 張牌陣，請在下方牌堆中點擊選出 ${currentSpread} 張牌。`;
+                renderCardDeck();
+            }, 2500);
+        }
+
+        function renderCardDeck() {
+            const grid = document.getElementById('cardDeckGrid');
+            grid.innerHTML = '';
+            
+            const shuffledIndices = [...Array(tarotDeck.length).keys()].sort(() => Math.random() - 0.5).slice(0, 16);
+
+            shuffledIndices.forEach((cardIndex) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'w-16 h-24 md:w-20 md:h-30 tarot-card-back rounded-lg cursor-pointer hover:scale-105 hover:border-amber-400 transition-all shadow-md flex items-center justify-center relative group';
+                cardEl.dataset.index = cardIndex;
+                cardEl.innerHTML = `<i class="fa-solid fa-moon text-amber-300/40 text-lg group-hover:text-amber-300 transition-colors"></i>`;
+                
+                cardEl.onclick = () => pickCard(cardIndex, cardEl);
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function pickCard(cardIndex, element) {
+            if (selectedCards.length >= currentSpread) return;
+            if (element.classList.contains('opacity-40', 'pointer-events-none')) return;
+
+            element.classList.add('opacity-40', 'pointer-events-none', 'scale-95');
+            element.innerHTML = `<i class="fa-solid fa-check text-amber-400"></i>`;
+
+            selectedCards.push(cardIndex);
+
+            const remaining = currentSpread - selectedCards.length;
+            if (remaining > 0) {
+                document.getElementById('selectPrompt').innerText = `已選擇 ${selectedCards.length}/${currentSpread} 張，還需選擇 ${remaining} 張`;
+            } else {
+                document.getElementById('selectPrompt').innerText = "選擇完成，即將由牌師揭曉神諭...";
+                setTimeout(() => {
+                    revealResults();
+                }, 800);
+            }
+        }
+
+        function revealResults() {
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.remove('hidden');
+            document.getElementById('summaryTopicDisplay').innerText = `占卜領域：${topicNames[currentTopic]} | 牌陣：${currentSpread === 1 ? '單張牌深層指引' : '三張牌陣（過去/現在/未來）'}`;
+
+            const grid = document.getElementById('resultCardsGrid');
+            grid.innerHTML = '';
+            drawnCardObjects = [];
+
+            selectedCards.forEach((cardIdx, i) => {
+                const cardData = tarotDeck[cardIdx];
+                const isReversed = Math.random() < 0.35; // 35% chance for reversed
+                const positionName = spreadPositionNames[currentSpread][i];
+                const stateData = isReversed ? cardData.reversed : cardData.upright;
+
+                drawnCardObjects.push({ ...cardData, isReversed, positionName, stateData });
+
+                const cardWrapper = document.createElement('div');
+                cardWrapper.className = 'flex flex-col items-center space-y-3';
+                cardWrapper.innerHTML = `
+                    <span class="font-mystical text-amber-300 text-xs md:text-sm font-semibold tracking-wider bg-purple-950/60 px-3 py-1 rounded-full border border-amber-500/30">${positionName}</span>
+                    <div class="perspective-1000 w-44 h-64 md:w-52 md:h-76 cursor-pointer" onclick="toggleCardFlip(this)">
+                        <div class="relative w-full h-full duration-700 transform-style-3d shadow-2xl rounded-xl" id="card-inner-${i}">
+                            <!-- Card Back -->
+                            <div class="absolute inset-0 tarot-card-back rounded-xl flex flex-col items-center justify-center p-4 backface-hidden border-2 border-amber-500/70">
+                                <i class="fa-solid fa-star-of-life text-amber-400 text-2xl mb-2 shimmer-effect"></i>
+                                <span class="font-mystical text-[10px] text-amber-200 tracking-widest text-center">點擊翻開卡牌</span>
+                            </div>
+                            <!-- Card Front with Professional SVG Illustration -->
+                            <div class="absolute inset-0 bg-[#0c0918] border-2 border-amber-500 rounded-xl p-2 flex flex-col items-center justify-between rotate-y-180 backface-hidden text-center shadow-[0_0_20px_rgba(197,160,89,0.3)] overflow-hidden">
+                                <div class="w-full flex justify-between items-center text-[10px] text-amber-400/80 px-1 pt-1">
+                                    <span>${cardData.element}</span>
+                                    <span>${isReversed ? '逆位 (Rev)' : '正位'}</span>
+                                </div>
+                                <div class="w-24 h-32 md:w-28 md:h-38 my-auto flex items-center justify-center">
+                                    ${cardData.svg}
+                                </div>
+                                <div class="w-full pb-1">
+                                    <h4 class="font-mystical text-amber-100 font-bold text-xs md:text-sm truncate">${cardData.name}</h4>
+                                    <span class="inline-block px-2 py-0.5 mt-0.5 rounded text-[9px] ${isReversed ? 'bg-red-950/60 text-red-300 border border-red-800/50' : 'bg-amber-950/60 text-amber-300 border border-amber-800/50'}">
+                                        ${isReversed ? '逆位能量' : '正位能量'}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(cardWrapper);
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('.perspective-1000 > div').forEach(inner => {
+                    inner.classList.add('rotate-y-180');
+                });
+            }, 600);
+
+            generateProfessionalReading();
+        }
+
+        function toggleCardFlip(cardWrapper) {
+            const inner = cardWrapper.querySelector('div');
+            inner.classList.toggle('rotate-y-180');
+        }
+
+        function generateProfessionalReading() {
+            const userQ = document.getElementById('userQuestion').value.trim();
+            const container = document.getElementById('aiReadingContent');
+            
+            let html = '';
+            if (userQ) {
+                html += `<div class="p-3 rounded-xl bg-purple-950/40 border border-purple-900/60 italic text-amber-200/90 text-xs md:text-sm">📌 <strong>問卜者提問：</strong>「${userQ}」</div>`;
+            }
+
+            if (currentSpread === 1) {
+                const card = drawnCardObjects[0];
+                const s = card.stateData;
+                const f = s.fortune[currentTopic];
+
+                html += `
+                    <div class="space-y-4">
+                        <div class="border-b border-purple-900/50 pb-3">
+                            <h4 class="font-mystical text-amber-300 font-bold text-base md:text-lg mb-1">【核心象徵與牌意本質】</h4>
+                            <p class="text-gray-300">您抽到的核心牌卡為 <strong class="text-amber-200">${card.name}（${card.isReversed ? '逆位' : '正位'}）</strong>。此牌在神祕學中對應著「${card.element}」，其根本意涵在於：<span class="text-amber-100 font-semibold">${s.core}</span>。</p>
+                        </div>
+                        
+                        <div class="border-b border-purple-900/50 pb-3">
+                            <h4 class="font-mystical text-amber-300 font-bold text-base md:text-lg mb-1">【現狀與心境剖析】</h4>
+                            <p class="text-gray-300">${s.mind} 具體對應到您目前的<span class="text-amber-200 font-semibold">${topicNames[currentTopic]}</span>：${f}</p>
+                        </div>
+
+                        <div class="border-b border-purple-900/50 pb-3">
+                            <h4 class="font-mystical text-amber-300 font-bold text-base md:text-lg mb-1">【專業指引與預警】</h4>
+                            <p class="text-gray-300">${s.advice} 牌師建議您應以客觀務實的態度應對，切忌盲目從眾或過度情緒化。</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 space-y-1">
+                            <h4 class="font-mystical font-bold text-sm md:text-base"><i class="fa-solid fa-wand-sparkles mr-2"></i>【專屬開運戰略建議】</h4>
+                            <p class="text-xs md:text-sm text-gray-300">建議近期可配戴<strong>黃水晶或紫水晶飾品</strong>調整磁場；在日常穿搭中融入<strong>深藍色或金色</strong>元素以提升決策信心。每日抽空 10 分鐘進行靜心呼吸，釐清思緒，便能迎來能量轉化。</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const [past, present, future] = drawnCardObjects;
+                
+                html += `
+                    <div class="space-y-5">
+                        <div class="border-b border-purple-900/50 pb-3">
+                            <h4 class="font-mystical text-amber-300 font-bold text-base md:text-lg mb-1">【三牌陣連貫脈絡總覽】</h4>
+                            <p class="text-gray-300">從<strong>過去根源（${past.name}）</strong>到<strong>現在狀態（${present.name}）</strong>，最終走向<strong>未來發展（${future.name}）</strong>，在<span class="text-amber-200 font-semibold">${topicNames[currentTopic]}</span>領域中，您的生命能量正經歷一場深刻的結構性蛻變。</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="p-3 rounded-xl bg-purple-950/30 border border-purple-900/50 space-y-2">
+                                <span class="text-xs font-mystical text-amber-400 font-bold">1. 過去根源</span>
+                                <h5 class="font-mystical text-amber-100 font-bold text-sm">${past.name} (${past.isReversed ? '逆位' : '正位'})</h5>
+                                <p class="text-xs text-gray-300">${past.stateData.core}。這段經驗奠定了您目前的心理基調與盲點。</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-purple-950/30 border border-purple-900/50 space-y-2">
+                                <span class="text-xs font-mystical text-amber-400 font-bold">2. 現在狀態</span>
+                                <h5 class="font-mystical text-amber-100 font-bold text-sm">${present.name} (${present.isReversed ? '逆位' : '正位'})</h5>
+                                <p class="text-xs text-gray-300">${present.stateData.mind} 具體表現於：${present.stateData.fortune[currentTopic]}</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-purple-950/30 border border-purple-900/50 space-y-2">
+                                <span class="text-xs font-mystical text-amber-400 font-bold">3. 未來發展</span>
+                                <h5 class="font-mystical text-amber-100 font-bold text-sm">${future.name} (${future.isReversed ? '逆位' : '正位'})</h5>
+                                <p class="text-xs text-gray-300">${future.stateData.advice} 若能即時修正現狀，未來將朝此方向穩健演進。</p>
+                            </div>
+                        </div>
+
+                        <div class="border-b border-purple-900/50 pb-3">
+                            <h4 class="font-mystical text-amber-300 font-bold text-base md:text-lg mb-1">【牌師深度戰略指引】</h4>
+                            <p class="text-gray-300">綜觀全局，您目前最大的挑戰在於如何整合過去的教訓與現狀的抉擇。切勿因短期的波動而亂了陣腳。未來的走向取決於您當下是否有足夠的勇氣打破舊有模式。</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 space-y-1">
+                            <h4 class="font-mystical font-bold text-sm md:text-base"><i class="fa-solid fa-wand-sparkles mr-2"></i>【專屬開運戰略建議】</h4>
+                            <p class="text-xs md:text-sm text-gray-300">建議近期在書桌或辦公桌左前方放置<strong>白水晶柱</strong>以淨化磁場；穿搭多使用<strong>大地色系或金屬飾品</strong>來增強落地感與執行力。面對關鍵決策時，寫下利弊清單，信任直覺並果斷執行。</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function resetApp() {
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+            document.getElementById('restartBtn').classList.add('hidden');
+            document.getElementById('userQuestion').value = '';
+        }
+
+        function shareReading() {
+            const textToCopy = `【神秘塔羅殿堂 · 資深牌師解讀報告】\n領域：${topicNames[currentTopic]}\n` + 
+                drawnCardObjects.map(c => `• ${c.positionName}：${c.name}（${c.isReversed ? '逆位' : '正位'}）\n- 核心意涵：${c.stateData.core}`).join('\n') + 
+                `\n—— 願智慧之光指引您的每一步`;
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alertBox("專業解讀報告已成功複製到剪貼簿！");
+            } catch (err) {
+                alertBox("複製失敗，請手動複製。");
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function alertBox(message) {
+            const existingModal = document.getElementById('customModal');
+            if (existingModal) existingModal.remove();
+
+            const modal = document.createElement('div');
+            modal.id = 'customModal';
+            modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in p-4';
+            modal.innerHTML = `
+                <div class="bg-tarot-cardBg border border-amber-500 rounded-2xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl">
+                    <i class="fa-solid fa-moon text-amber-400 text-3xl"></i>
+                    <p class="text-amber-100 font-mystical text-base">${message}</p>
+                    <button onclick="document.getElementById('customModal').remove()" class="px-6 py-2 rounded-xl bg-amber-500 text-tarot-dark font-mystical font-bold text-sm hover:bg-amber-400 transition-colors">確定</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+    </script>
+</body>
+</html>
